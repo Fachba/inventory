@@ -20,6 +20,11 @@ Route::middleware('jwt.auth')->group(function () {
 });
 
 Route::middleware(['jwta.auth'])->group(function () {
+
+    Route::post('/status', [LogStatusController::class, 'create'])->middleware('roleAction:json');
+
+
+    Route::get('/status', [LogStatusController::class, 'index']);
     Route::apiResource('products', ProductController::class);
 
     Route::prefix('purchase-orders')->group(function () {
@@ -39,7 +44,7 @@ Route::middleware(['jwta.auth'])->group(function () {
     });
 
     Route::prefix('good-receives')->group(function () {
-        Route::get('/', [GoodReceiveController::class, 'index'])->middleware('roleAction:GR,1');
+        Route::get('/', [GoodReceiveController::class, 'index']);
         Route::get('/{id}', [GoodReceiveController::class, 'show']);
         Route::post('/', [GoodReceiveController::class, 'store']);
         Route::put('/{id}', [GoodReceiveController::class, 'update']);
@@ -54,7 +59,4 @@ Route::middleware(['jwta.auth'])->group(function () {
         Route::put('/{id}', [StockOpnameController::class, 'update']);
         Route::delete('/{id}', [StockOpnameController::class, 'destroy']);
     });
-
-    Route::get('/status', [LogStatusController::class, 'index']);
-    Route::post('/status', [LogStatusController::class, 'create'])->middleware('roleAction:json');;
 });
