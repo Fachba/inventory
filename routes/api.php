@@ -25,6 +25,9 @@ Route::middleware(['jwta.auth'])->group(function () {
 
 
     Route::get('/status', [LogStatusController::class, 'index']);
+
+    Route::get('/movement-stock/{id}', [ProductController::class, 'movementStock']);
+
     Route::apiResource('products', ProductController::class);
 
     Route::prefix('purchase-orders')->group(function () {

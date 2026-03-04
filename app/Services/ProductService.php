@@ -20,4 +20,9 @@ class ProductService
     {
         return $this->repository->find($id);
     }
+
+    public function movementStock($id, $limit, $offset)
+    {
+        return $this->repository->movementStockProduct($id, $limit, $offset);
+    }
 }

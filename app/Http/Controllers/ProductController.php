@@ -42,4 +42,20 @@ class ProductController extends Controller
 
         return response()->json($information);
     }
+
+    public function movementStock($id, Request $request): JsonResponse
+    {
+        try {
+            $limit = $request->query('limit', 10);   // default 10
+            $offset = $request->query('offset', 0);  // default 0
+
+            $response = $this->service->movementStock($id, $limit, $offset);
+            $information = Response::set('OK', $response);
+        } catch (\Throwable $th) {
+            //throw $th;
+            $information = Response::setError($th);
+        }
+
+        return response()->json($information);
+    }
 }
